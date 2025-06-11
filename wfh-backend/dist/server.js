@@ -3,36 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+// src/server.ts or src/index.ts
 const express_1 = __importDefault(require("express"));
-const cors = require("cors");
-require("dotenv").config();
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const database_1 = __importDefault(require("./config/database"));
+const organisationRoutes_1 = __importDefault(require("./routes/organisationRoutes"));
+const healthRoutes_1 = __importDefault(require("./routes/healthRoutes"));
+dotenv_1.default.config();
 const app = (0, express_1.default)();
 (0, database_1.default)();
 app.use(express_1.default.json());
-app.use(cors());
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
-// app.get("/amar/:food", (req, res) => {
-//   const food = req.params.food;
-//   let jsonObj: { [key: string]: any } = {};
-//   jsonObj["query"] = req.query;
-//   jsonObj["body"] = req.body;
-//   jsonObj["params"] = req.params;
-//   jsonObj["headers"] = req.headers;
-//   jsonObj["method"] = req.method;
-//   jsonObj["url"] = req.url;
-//   jsonObj["cookkies"] = req.cookies;
-//   jsonObj["message"] = `Hey love!, I will cook ${food} for you`;
-//   jsonObj["name"] = "Amar";
-//   res.send(jsonObj);
-//   //   res.format({
-//   //     json: () => {
-//   //       res.send({ message: "HI MY BUBBA" });
-//   //     },
-//   //   });
-// });
+app.use((0, cors_1.default)());
+app.use("/api/organisations", organisationRoutes_1.default);
+app.use("/api/health", healthRoutes_1.default);
 app.listen(process.env.PORT || 3000, () => {
     console.log("🚀 Server is running on http://localhost:3000");
 });
