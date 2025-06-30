@@ -7,8 +7,6 @@ import connectDB from "./config/database";
 import organisationRoutes from "./routes/organisationRoutes";
 import healthRoutes from "./routes/healthRoutes";
 
-//test
-
 dotenv.config();
 
 const app = express();
